@@ -13,4 +13,4 @@ cmds = [
 ]
 
 [start]
-cmd = "next start -p ${PORT:-3000}"
+cmd = "mkdir -p /data && bun run prisma db push --accept-data-loss && next start -p ${PORT:-3000}"
