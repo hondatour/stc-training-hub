@@ -9,6 +9,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Note: When DATABASE_URL is not set, the app falls back to "file:./db/custom.db"
+// via src/lib/db.ts. This env() wrapper is required by Prisma at build time.
+
 model Course {
   id          String   @id @default(cuid())
   name        String   @unique
