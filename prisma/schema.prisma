@@ -1,0 +1,73 @@
+// Plain SQLite — works everywhere (local + Railway). No Turso, no adapters.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  category    String?
+  description String?
+  duration    String?
+  createdAt   DateTime @default(now())
+}
+
+model Country {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  code      String   @unique
+  flag      String?
+  createdAt DateTime @default(now())
+}
+
+model Request {
+  id                  String   @id @default(cuid())
+  clientName          String
+  courseName          String
+  country             String
+  startDate           String
+  examDate            String?
+  qtyCandidates       Int
+  instructorName      String?
+  instructorAssigned  String?
+  courseType          String
+  examDayType         String?
+  certificateType     String?
+  issueCertDueDate    String?
+  bookingConfirmed    String   @default("Pending")
+  notes               String?
+  superNotes          String?
+  status              String?
+  isVisible           Boolean  @default(true)
+  batchId             String?
+  contactPhone        String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  batch               Batch?   @relation(fields: [batchId], references: [id], onDelete: SetNull)
+}
+
+model Batch {
+  id              String    @id @default(cuid())
+  name            String
+  courseName      String
+  startDate       String
+  examDate        String?
+  status          String    @default("Proposed")
+  totalCandidates Int       @default(0)
+  notes           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  requests        Request[]
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
