@@ -1,10 +1,46 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { execSync } from "child_process";
 
 // POST /api/seed
 // Non-destructive: only creates rows that don't exist. Auto-runs on first page load.
+// Also ensures the database schema exists (runs `prisma db push` if needed).
 export async function POST() {
   try {
+    // First, ensure the database schema exists.
+    // Try a simple query — if it fails with "no such table", push the schema.
+    try {
+      await db.setting.count();
+    } catch (schemaErr) {
+      console.log("Schema not initialized, pushing schema...");
+      try {
+        // Run prisma db push to create all tables
+        execSync("bun run prisma db push --accept-data-loss", {
+          stdio: "inherit",
+          env: process.env,
+          cwd: process.cwd(),
+        });
+        console.log("Schema pushed successfully");
+      } catch (pushErr) {
+        console.error("Schema push failed:", pushErr);
+        // Try alternative: use npx prisma
+        try {
+          execSync("npx prisma db push --accept-data-loss", {
+            stdio: "inherit",
+            env: process.env,
+            cwd: process.cwd(),
+          });
+          console.log("Schema pushed via npx");
+        } catch (e2) {
+          console.error("Both schema push attempts failed");
+          return NextResponse.json(
+            { error: "Schema initialization failed", details: String(e2) },
+            { status: 500 }
+          );
+        }
+      }
+    }
+
     // 1. Settings — STC Training Hub brand + WhatsApp + email + admin password
     const defaultSettings: Record<string, string> = {
       brandName: "STC Training Hub",
