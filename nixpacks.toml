@@ -1,6 +1,4 @@
 # Nixpacks config for Railway — explicit build/run commands
-# This file tells Railway exactly how to build and run the app.
-
 [phases.setup]
 nixPkgs = ["nodejs_20", "bun"]
 aptPkgs = ["openssl"]
@@ -19,4 +17,4 @@ cmds = [
 ]
 
 [start]
-cmd = "NODE_ENV=production node .next/standalone/server.js"
+cmd = "NODE_ENV=production PORT=$PORT node .next/standalone/server.js"
