@@ -1,4 +1,4 @@
-# Nixpacks config for Railway — explicit build/run commands
+# Nixpacks config for Railway
 [phases.setup]
 nixPkgs = ["nodejs_20", "bun"]
 aptPkgs = ["openssl"]
@@ -10,11 +10,7 @@ cmds = ["bun install --frozen-lockfile"]
 cmds = [
   "bun run prisma generate",
   "bun run next build",
-  "mkdir -p .next/standalone/.next",
-  "cp -r .next/static .next/standalone/.next/",
-  "cp -r public .next/standalone/",
-  "cp -r prisma .next/standalone/",
 ]
 
 [start]
-cmd = "NODE_ENV=production PORT=$PORT node .next/standalone/server.js"
+cmd = "next start -p ${PORT:-3000}"
