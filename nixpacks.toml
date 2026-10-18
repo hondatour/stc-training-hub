@@ -13,4 +13,4 @@ cmds = [
 ]
 
 [start]
-cmd = "mkdir -p /data && bun run prisma db push --accept-data-loss && next start -p ${PORT:-3000}"
+cmd = "DATABASE_URL=\"file:./db/custom.db\" bun run prisma db push --accept-data-loss && DATABASE_URL=\"file:./db/custom.db\" next start -p ${PORT:-3000}"
