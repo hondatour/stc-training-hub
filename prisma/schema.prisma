@@ -1,11 +1,13 @@
-// Plain SQLite — works everywhere (local + Railway). No Turso, no adapters.
+// PostgreSQL — persistent database that survives redeploys on Railway.
+// This means your data (settings, requests, courses) is NEVER wiped when
+// code updates are pushed.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
