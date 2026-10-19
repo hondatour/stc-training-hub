@@ -19,7 +19,8 @@ export function CatalogView({ requests, settings, countries, courses }: { reques
     if (courseType !== "all" && r.courseType !== courseType) return false;
     if (query) {
       const q = query.toLowerCase();
-      const hay = `${r.clientName} ${r.courseName} ${r.country} ${r.notes || ""}`.toLowerCase();
+      // Notes are admin-only — not searched in client view
+      const hay = `${r.clientName} ${r.courseName} ${r.country}`.toLowerCase();
       if (!hay.includes(q)) return false;
     }
     return true;

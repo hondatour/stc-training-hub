@@ -55,7 +55,7 @@ Please share the quotation and availability. Thank you.`;
             <strong className="font-semibold text-slate-900">{request.qtyCandidates}</strong> {request.qtyCandidates === 1 ? "seat" : "seats"} open
           </span>
         </div>
-        {request.notes && <p className="line-clamp-2 rounded-md bg-amber-50/60 p-2.5 text-xs text-amber-900">{request.notes}</p>}
+        {/* Notes are admin-only — hidden from client view per user request */}
         <div className="mt-auto pt-2">
           <a href={waHref} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-800 hover:shadow-md">
             <MessageCircle className="h-4 w-4" />Book on WhatsApp<ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

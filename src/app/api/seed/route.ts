@@ -55,7 +55,7 @@ export async function POST() {
       if (!exists) await db.setting.create({ data: { key, value } });
     }
 
-    // 2. Courses — 10 IADC courses
+    // 2. Courses — 11 IADC courses
     const courses = [
       { name: "Drilling - Combined Driller Level", category: "Drilling", description: "Combined driller-level well control course." },
       { name: "Drilling - Combined Supervisor Level", category: "Drilling", description: "Combined supervisor-level well control course." },
@@ -67,6 +67,7 @@ export async function POST() {
       { name: "Well-Services - OGOR", category: "Well Services", description: "OGOR well services well control." },
       { name: "Well-Services - Snubbing", category: "Well Services", description: "Snubbing operations well control." },
       { name: "Well-Services - Wireline", category: "Well Services", description: "Wireline well intervention well control." },
+      { name: "Well-Services - Workover", category: "Well Services", description: "Workover well services well control." },
     ];
     for (const c of courses) {
       const exists = await db.course.findUnique({ where: { name: c.name } });

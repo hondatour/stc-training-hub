@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-const PUBLIC_FIELDS = ["id","clientName","courseName","country","startDate","examDate","qtyCandidates","courseType","notes"] as const;
+// Fields safe to expose to clients on the public catalog.
+// Notes are HIDDEN from clients (admin-only) — per user request.
+const PUBLIC_FIELDS = ["id","clientName","courseName","country","startDate","examDate","qtyCandidates","courseType"] as const;
 
 export async function GET(req: NextRequest) {
   try {

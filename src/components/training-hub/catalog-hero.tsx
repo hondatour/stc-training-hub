@@ -14,7 +14,10 @@ export function CatalogHero({ stats, settings }: { stats: Stats | null; settings
       <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex flex-col gap-6">
           <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="w-fit">
-            <img src="/stc-logo.png" alt="STC logo" className="h-14 w-auto rounded-md sm:h-16" />
+            {/* Larger logo on a subtle white backdrop with drop shadow for clarity on dark hero */}
+            <div className="rounded-2xl bg-white/95 p-3 shadow-2xl shadow-black/30 ring-1 ring-white/40 backdrop-blur-sm">
+              <img src="/stc-logo.png" alt="STC logo" className="h-20 w-auto sm:h-28" />
+            </div>
           </motion.div>
           <div className="inline-flex w-fit items-center gap-2 rounded-full border border-red-300/30 bg-red-300/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-red-200">
             <Sparkles className="h-3.5 w-3.5" />
