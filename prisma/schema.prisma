@@ -1,13 +1,11 @@
-// PostgreSQL — persistent database that survives redeploys on Railway.
-// This means your data (settings, requests, courses) is NEVER wiped when
-// code updates are pushed.
+// SQLite — works with the existing Railway volume.
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
